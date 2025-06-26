@@ -20,12 +20,12 @@ db.orders.aggregate([
             total_amount:{$first:"$total_amount"}
         }
     },
-    // {
-    //     $group:{
-    //         _id:"$_id.year",
-    //         maxTotalAmount:{$max:"$total_amount"}
-    //     }
-    // },
+    {
+        $group:{
+            _id:"$_id.year",
+            maxTotalAmount:{$max:"$total_amount"}
+        }
+    },
     {
         $sort: ({ "_id": 1 })
     },
