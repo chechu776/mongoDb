@@ -1,0 +1,13 @@
+db.users.aggregate([{
+    $group:{
+        _id:{
+            year:{$year:"$joined_date"},
+            month:{$month:"$joined_date"}
+        },
+        users:{$sum:1}
+        }
+    },
+    {
+        $sort:{"_id.year":1,"_id.month":1}
+    }
+])
