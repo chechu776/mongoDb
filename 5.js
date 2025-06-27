@@ -1,3 +1,10 @@
+// Calculate monthly customer acquisition growth
+//  Track how many new customers signed up each month.
+//  Example: In March 2022, 50 new customers joined.
+
+
+
+
 db.users.aggregate([{
     $group:{
         _id:{
