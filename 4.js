@@ -1,3 +1,8 @@
+// Identify peak sales months each year
+//  Identify the months with the highest sales each year.
+//  Example: December consistently had the highest sales of $100,000.
+
+
 db.orders.aggregate([
     {
         $group: {
