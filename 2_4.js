@@ -1,0 +1,39 @@
+db.orders.aggregate(
+    [
+        {
+            $lookup:{
+                from:"products",
+                localField:"items.product_id",
+                foreignField:"_id",
+                as:"products"
+            }
+        },
+        {
+            $unwind:"$products"
+        },
+        {
+            $group:{
+                _id:{
+                    country:"$country",
+                    product:"$products.name"
+                },
+                product_count:{$sum :1}
+            }
+        },
+        {
+            $sort:{"_id.country":1,"product_count":-1,"_id.product":1}
+        },
+        {
+            $group:{
+                _id:{
+                    country:"$_id.country",
+                },
+                    product:{$first:"$_id.product"},
+                    count:{$first:"$product_count"}
+            }
+        },
+        {
+            $sort:{"_id.country":1,"product_count":-1,"_id.product":1}
+        },
+    ]
+)
