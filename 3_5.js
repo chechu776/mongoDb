@@ -1,0 +1,14 @@
+db.orders.aggregate(
+    [
+        {
+            $bucket:{
+                groupBy:"$total_amount",
+                boundaries:[0,1000,5000,10000],
+                default:"Above:10000",
+                output:{
+                    "total_orders":{$sum:1}
+                }
+            }
+        }
+    ]
+)

@@ -1,0 +1,27 @@
+db.payments.aggregate(
+    [
+        {
+            $lookup:{
+                from:"refund",
+                localField:"order_id",
+                foreignField:"order_id",
+                pipline:[
+                    {
+                        $sum:"$refund_amount"
+                    }
+                ],
+                as:"refund_total"
+            }
+        },
+        {
+            $unwind:"$refund_total"
+        },
+        {
+            $project:{
+                refund_total:"$refund_total",
+                payment_total:{$sum:"$amount"},
+                $subtract:["$payment_total","$refund_total"]
+            }
+        }
+    ]
+)
