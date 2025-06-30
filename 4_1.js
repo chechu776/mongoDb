@@ -1,0 +1,24 @@
+db.orders.aggregate(
+    [
+        {
+            $lookup:
+            {
+                from:"promotions",
+                localField:"discount_code",
+                foreignField:"code",
+                as:"codes"
+            }
+        },
+        {
+            $unwind:"$codes"
+        },
+        {
+            $group:{
+                _id:{
+                    codes:"$codes.code"
+                },
+                amount:{$sum:"$total_amount"}
+            }
+        }
+    ]
+)
