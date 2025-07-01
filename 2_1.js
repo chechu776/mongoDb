@@ -56,7 +56,10 @@ db.orders.aggregate(
             }
         },
         {
-            $unwind:"$refund"
+            $unwind:{
+                path:"$refund",
+                preserveNullAndEmptyArrays:true
+            }
         },
         {
             $group:{
