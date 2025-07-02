@@ -33,6 +33,15 @@ db.payments.aggregate([
 
         }
     },
-    { $group: { _id: { year: { $year: "$payment_date" }, month: { $month: "$payment_date" } }, totalRevenue: { $sum: "$amount" } } }
-    , { $sort: { "_id.year": 1, "_id.month": 1 } }
+    {
+        $group: {
+            _id: {
+                year: { $year: "$payment_date" },
+                month: { $month: "$payment_date" }
+            }, totalRevenue: { $sum: "$amount" }
+        }
+    },
+    {
+        $sort: { "_id.year": 1, "_id.month": 1 }
+    }
 ])

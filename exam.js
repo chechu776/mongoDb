@@ -57,3 +57,7 @@ db.products.find({
         }]
     }
 }).count()
+
+db.orders.find({$and:[{price:{$gt:500}},{currency:"USD"}]})
+
+db.orders.updateOne({_id:ObjectId('6851527e54dcf9cdc8600d40')},{$inc:{total_amount:-10}})
